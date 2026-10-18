@@ -4,46 +4,46 @@ Everything below is done by Wes under his own accounts (wesleysanders98@gmail.co
 
 ## 1. GitHub (code)
 
-1. Create the account at https://github.com/signup (free plan).
-2. Create a new empty repository named `primeview-exteriors` (private is fine). Do not add a README; the code already exists locally.
-3. Push this folder to it:
-
-```bash
-git remote add origin https://github.com/<wes-username>/primeview-exteriors.git
-git push -u origin main
-```
+Status 2026-10-18: done. Account `wesleysanders98`, repo https://github.com/wesleysanders98/primeview-exteriors, `main` pushed. `ryanrominger` is a collaborator with write access (remove once Wes no longer needs help). The repo should be **public** so Netlify's free plan builds every commit (see section 2).
 
 ## 2. Netlify (hosting, builds, form email)
 
-1. Sign up at https://app.netlify.com/signup using "Sign up with GitHub" (free Starter plan).
-2. Add new project > Import an existing project > GitHub > pick `primeview-exteriors`.
-   Build command `npm run build`, publish directory `dist` (already in `netlify.toml`).
-3. After the first deploy, Project configuration > Project details > Change project name to `primeviewexteriors` so the URL is `https://primeviewexteriors.netlify.app`.
-4. Forms > enable form detection, then redeploy so Netlify registers the `estimate` form.
-5. Forms > Form notifications > Add notification > Email notification > form `estimate`, email `wesleysanders98@gmail.com`.
-6. Submit a test lead on the live site and confirm the email arrives.
+Status 2026-10-18: account created (team "Prime View Exteriors", free Starter plan), repo connected, project renamed to `primeviewexteriors`, production visibility set to Public, form detection enabled. Live at https://primeviewexteriors.netlify.app.
+
+Gotchas we hit:
+- New Netlify projects default to **Private visibility**, which returns a 401 login page to the public. Project configuration > General > Visitor access > Edit visibility > Public.
+- On the free plan, a **private GitHub repo only builds commits pushed by the account owner**. Anyone else's push is blocked with "Unrecognized Git contributor". Keep the repo public (fine for a marketing site) or make every commit from Wes's GitHub account.
+
+Still to do:
+1. Forms > Form notifications > Add notification > Email notification > form `estimate`, email `wesleysanders98@gmail.com`. The `estimate` form only appears after a successful deploy with form detection on.
+2. Project configuration > Environment variables: add `SUPABASE_URL` and `SUPABASE_SERVICE_ROLE_KEY` (see section 3), then trigger a redeploy.
+3. Project configuration > General > Powered by Netlify badge > Configure > turn off.
+4. Submit a test lead on the live site and confirm the email arrives.
 
 ## 3. Supabase (lead database)
 
-1. Sign up at https://supabase.com/dashboard/sign-up with GitHub (free plan).
-2. New project: name `primeview-exteriors`, region US East (Ohio) or closest to Indianapolis. Save the database password somewhere safe.
-3. SQL Editor > paste the contents of `supabase/migrations/20261018000000_create_leads.sql` > Run.
-4. Project Settings > API: copy the Project URL and the `service_role` secret key.
-5. In Netlify: Project configuration > Environment variables, add
-   - `SUPABASE_URL` = the project URL
-   - `SUPABASE_SERVICE_ROLE_KEY` = the service_role key
-   Then trigger a redeploy.
-6. Submit another test lead and confirm a row appears in Table Editor > `leads`.
+Status 2026-10-18: account created (email signup in Chrome), organization "Prime View Exteriors" on the Free plan, project `primeview-exteriors` in East US (Ohio) with automatic RLS enabled. The database password is in Wes's password manager only.
 
-## 4. Cloudflare (DNS, later)
+Still to do:
+1. SQL Editor > paste the contents of `supabase/migrations/20261018000000_create_leads.sql` > Run.
+2. Project Settings > API Keys: copy the Project URL and the `service_role` secret key.
+3. Add both to Netlify (section 2, step 2) and redeploy.
+4. Submit another test lead and confirm a row appears in Table Editor > `leads`.
 
-Only needed once primeviewexteriors.com is under our control (it is currently registered at GoDaddy with GoDaddy nameservers, expiring 2026-11-17).
+## 4. Cloudflare (DNS, waiting on domain control)
 
-1. Sign up at https://dash.cloudflare.com/sign-up (free plan).
-2. Add a domain > `primeviewexteriors.com` > Free plan. Cloudflare imports the existing records.
-3. At GoDaddy, replace the nameservers with the two Cloudflare gives you.
-4. In Netlify: Domain management > Add a domain > `primeviewexteriors.com`. Netlify shows the records to create.
-5. In Cloudflare DNS, add those records (an A or ALIAS/CNAME for the apex pointing at Netlify, and a CNAME for `www`). Set them to "DNS only" (grey cloud) so Netlify can issue the SSL certificate; proxying can be turned on afterwards.
+Status 2026-10-18: account created. `primeviewexteriors.com` has been added as a pending zone on the Free plan and Cloudflare imported the existing records (2 A, 8 CNAME, 3 MX, 2 SRV, 3 TXT). The domain is registered at GoDaddy (expires 2026-11-17) with GoDaddy nameservers and currently points at the GoDaddy Website Builder site.
+
+Important: the domain also carries business email. MX records point at GoDaddy's Microsoft 365 / Proofpoint mail (`mx1-usg2.ppe-hosted.com` and friends) and there is an SPF TXT record. Those were imported into Cloudflare, so switching nameservers should not interrupt mail, but confirm mail still works right after the switch.
+
+When the GoDaddy login is in hand:
+1. At GoDaddy > DNS > Nameservers, replace `ns03.domaincontrol.com` and `ns04.domaincontrol.com` with:
+   - `bill.ns.cloudflare.com`
+   - `sydney.ns.cloudflare.com`
+2. Wait for Cloudflare to show the zone as Active (minutes to a few hours).
+3. In Netlify: Domain management > Add a domain > `primeviewexteriors.com`. Netlify lists the records it wants.
+4. In Cloudflare DNS, delete the two GoDaddy `A` records for the apex and the `www` CNAME, then add Netlify's records (apex A record `75.2.60.5` or the ALIAS/CNAME Netlify shows, and `www` CNAME to `primeviewexteriors.netlify.app`). Set them to **DNS only** (grey cloud) until Netlify issues the SSL certificate; proxying can be turned on afterwards.
+5. Leave MX, TXT, SRV and other CNAME records alone.
 6. Update `url` in `src/data/site.ts` to `https://primeviewexteriors.com` and push.
 
 ## 5. Claude (ongoing management)
