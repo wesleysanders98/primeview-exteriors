@@ -17,11 +17,12 @@ State as of 2026-10-18, all verified working:
 4. Brand colors and fonts are placeholders in src/styles/global.css. There are no real photos or reviews yet.
 
 Next actions, in order:
-a. Replace placeholder content with real material: job photos, three to five Google review quotes, and the actual financing option. Business facts live in src/data/site.ts.
-b. Branding: use Claude Design with the prompt in docs/BRANDING.md to create brand guidelines, then apply the palette and fonts in src/styles/global.css and the logo in src/components/Header.astro and Footer.astro so the site is canonical with the guidelines.
-c. Start Phase 1 of docs/ROADMAP.md (reviews section, project gallery, financing, storm damage and insurance claims section).
-d. When I gain control of primeviewexteriors.com, follow section 4 of docs/SETUP.md (nameservers at GoDaddy, Netlify custom domain, DNS records, keep MX and TXT records), then change url in src/data/site.ts and push.
-e. Once the site is stable, remove ryanrominger as a collaborator on the GitHub repo.
+a. If a Linear connector is available, create a Linear issue in the "Website launch" project (Website team, key WEB) for each Phase 1 item in docs/ROADMAP.md, with a short description and acceptance criteria, and work from those issues from then on: set an issue In Progress when you start it and Done when the change is deployed.
+b. Replace placeholder content with real material: job photos, three to five Google review quotes, and the actual financing option. Business facts live in src/data/site.ts.
+c. Branding: use Claude Design with the prompt in docs/BRANDING.md to create brand guidelines, then apply the palette and fonts in src/styles/global.css and the logo in src/components/Header.astro and Footer.astro so the site is canonical with the guidelines.
+d. Continue through Phase 1 of docs/ROADMAP.md (reviews section, project gallery, financing, storm damage and insurance claims section).
+e. When I gain control of primeviewexteriors.com, follow section 4 of docs/SETUP.md (nameservers at GoDaddy, Netlify custom domain, DNS records, keep MX and TXT records), then change url in src/data/site.ts and push.
+f. Once the site is stable, remove ryanrominger as a collaborator on the GitHub repo.
 
 Things only I can do, so ask me instead of attempting them: entering passwords or signing in, approving OAuth prompts, pasting API keys or secrets into any dashboard, anything inside GoDaddy, and sending email.
 
