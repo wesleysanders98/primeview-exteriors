@@ -1,0 +1,24 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { site } from '../data/site';
+---
+
+<Layout title="Privacy Policy" description={`Privacy policy for ${site.name}.`}>
+  <section class="py-20">
+    <div class="container-x prose max-w-3xl">
+      <h1 class="section-title">Privacy Policy</h1>
+      <p class="mt-4 text-sm text-muted">Last updated: October 18, 2026</p>
+      <div class="mt-8 space-y-6 text-muted">
+        <p>{site.name} ("we", "us") respects your privacy. This page explains what we collect through this website and how we use it.</p>
+        <h2 class="text-xl font-bold text-brand-900">Information we collect</h2>
+        <p>When you request an estimate we collect the details you submit: your name, phone number, email address, ZIP code, the service you are interested in, and any project notes you add.</p>
+        <h2 class="text-xl font-bold text-brand-900">How we use it</h2>
+        <p>We use your information to respond to your request, schedule inspections, and provide estimates. By submitting the form you agree that we may contact you by phone, text message, or email about your request. You can opt out of text messages at any time by replying STOP.</p>
+        <h2 class="text-xl font-bold text-brand-900">Sharing</h2>
+        <p>We do not sell your information. Form submissions are processed by our website hosting provider (Netlify) and stored in our database provider (Supabase) so we can keep track of your request.</p>
+        <h2 class="text-xl font-bold text-brand-900">Contact</h2>
+        <p>Questions about this policy? Call us at {site.phoneDisplay} or write to {site.address.street}, {site.address.city}, {site.address.state} {site.address.zip}.</p>
+      </div>
+    </div>
+  </section>
+</Layout>

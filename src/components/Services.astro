@@ -1,0 +1,25 @@
+---
+import { services } from '../data/site';
+---
+
+<section id="services" class="scroll-mt-20 py-20">
+  <div class="container-x">
+    <p class="section-kicker">What we do</p>
+    <h2 class="section-title">Exterior services for Central Indiana homes</h2>
+    <p class="mt-3 max-w-2xl text-muted">From a full roof replacement to a single window, we handle the outside of your home from top to bottom.</p>
+    <div class="mt-10 grid gap-6 md:grid-cols-3">
+      {services.map((s) => (
+        <article class="flex flex-col rounded-xl border border-line bg-white p-6 shadow-sm">
+          <h3 class="text-xl font-bold text-brand-900">{s.title}</h3>
+          <p class="mt-2 text-sm text-muted">{s.description}</p>
+          <ul class="mt-4 space-y-1.5 text-sm">
+            {s.bullets.map((b) => (
+              <li class="flex items-start gap-2"><span class="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-accent-500"></span>{b}</li>
+            ))}
+          </ul>
+          <a href="#estimate" class="mt-6 text-sm font-semibold text-brand-700 hover:text-brand-900">Get an estimate &rarr;</a>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>

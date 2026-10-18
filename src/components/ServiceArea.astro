@@ -1,0 +1,16 @@
+---
+import { site } from '../data/site';
+---
+
+<section id="service-area" class="scroll-mt-20 bg-brand-800 py-16 text-white">
+  <div class="container-x grid items-center gap-8 md:grid-cols-2">
+    <div>
+      <p class="mb-2 text-sm font-semibold uppercase tracking-wider text-accent-400">Service area</p>
+      <h2 class="text-3xl font-bold tracking-tight">Proudly serving {site.serviceArea}</h2>
+      <p class="mt-3 text-brand-100/90">Based on the southwest side of Indianapolis and working across the metro.</p>
+    </div>
+    <ul class="grid grid-cols-2 gap-x-6 gap-y-2 text-sm sm:grid-cols-3">
+      {site.serviceCities.map((c) => <li class="flex items-center gap-2"><span class="h-1.5 w-1.5 rounded-full bg-accent-400"></span>{c}</li>)}
+    </ul>
+  </div>
+</section>

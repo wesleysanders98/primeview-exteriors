@@ -1,0 +1,66 @@
+---
+import { formServices } from '../data/site';
+interface Props { compact?: boolean; id?: string }
+const { compact = false, id = 'estimate-form' } = Astro.props;
+---
+
+<!--
+  Netlify Forms: the data-netlify attribute makes Netlify detect this form at
+  deploy time and collect submissions. Email notifications are configured in
+  the Netlify dashboard (Forms > Form notifications). Each submission also
+  fires netlify/functions/submission-created.mts, which copies the lead into
+  Supabase.
+-->
+<form
+  name="estimate"
+  method="POST"
+  action="/thank-you"
+  data-netlify="true"
+  netlify-honeypot="bot-field"
+  id={id}
+  class="grid gap-4"
+>
+  <input type="hidden" name="form-name" value="estimate" />
+  <p class="hidden">
+    <label>Do not fill this out if you are human: <input name="bot-field" /></label>
+  </p>
+
+  <div class={compact ? 'grid gap-4' : 'grid gap-4 sm:grid-cols-2'}>
+    <div>
+      <label class="label" for={`${id}-name`}>Full name</label>
+      <input class="field" id={`${id}-name`} name="name" type="text" autocomplete="name" required />
+    </div>
+    <div>
+      <label class="label" for={`${id}-phone`}>Phone</label>
+      <input class="field" id={`${id}-phone`} name="phone" type="tel" autocomplete="tel" required />
+    </div>
+    <div>
+      <label class="label" for={`${id}-email`}>Email</label>
+      <input class="field" id={`${id}-email`} name="email" type="email" autocomplete="email" required />
+    </div>
+    <div>
+      <label class="label" for={`${id}-zip`}>ZIP code</label>
+      <input class="field" id={`${id}-zip`} name="zip" type="text" inputmode="numeric" autocomplete="postal-code" pattern="[0-9]{5}" required />
+    </div>
+  </div>
+
+  <div>
+    <label class="label" for={`${id}-service`}>What do you need help with?</label>
+    <select class="field" id={`${id}-service`} name="service" required>
+      <option value="" disabled selected>Select a service</option>
+      {formServices.map((s) => <option value={s}>{s}</option>)}
+    </select>
+  </div>
+
+  <div>
+    <label class="label" for={`${id}-message`}>Project details <span class="font-normal text-muted">(optional)</span></label>
+    <textarea class="field" id={`${id}-message`} name="message" rows={compact ? 3 : 4} placeholder="Address, what you are seeing, timing, anything helpful."></textarea>
+  </div>
+
+  <label class="flex items-start gap-2 text-xs text-muted">
+    <input type="checkbox" name="consent" value="yes" required class="mt-0.5" />
+    <span>I agree to be contacted by phone, text, or email about my request. Message and data rates may apply. See our <a href="/privacy" class="underline">privacy policy</a>.</span>
+  </label>
+
+  <button type="submit" class="btn-primary w-full">Request My Free Estimate</button>
+</form>

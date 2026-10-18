@@ -1,0 +1,34 @@
+---
+import { site } from '../data/site';
+---
+
+<section class="relative isolate overflow-hidden bg-brand-900 text-white">
+  <div class="absolute inset-0 -z-10 bg-[radial-gradient(ellipse_at_top_right,rgba(245,158,11,0.25),transparent_55%)]"></div>
+  <div class="container-x grid items-center gap-10 py-20 lg:grid-cols-2 lg:py-28">
+    <div>
+      <p class="mb-3 text-sm font-semibold uppercase tracking-wider text-accent-400">Indianapolis &amp; Central Indiana</p>
+      <h1 class="text-4xl font-extrabold tracking-tight sm:text-5xl lg:text-6xl">
+        Roofing, siding, and windows done right.
+      </h1>
+      <p class="mt-5 max-w-xl text-lg text-brand-100/90">
+        Licensed and insured exterior specialists. Free inspections, honest written estimates, and financing that fits your budget.
+      </p>
+      <div class="mt-8 flex flex-col gap-3 sm:flex-row">
+        <a href="#estimate" class="btn-primary">Request a Free Estimate</a>
+        <a href={`tel:${site.phone}`} class="btn-ghost">Call {site.phoneDisplay}</a>
+      </div>
+      <ul class="mt-8 flex flex-wrap gap-x-6 gap-y-2 text-sm text-brand-100/80">
+        <li>Free inspections</li>
+        <li>Licensed &amp; insured</li>
+        <li>Financing available</li>
+      </ul>
+    </div>
+    <div class="rounded-xl bg-white p-6 text-ink shadow-2xl lg:p-8" id="estimate-top">
+      <p class="text-xl font-bold text-brand-900">Get your free estimate</p>
+      <p class="mt-1 text-sm text-muted">Tell us a little about your project and we will reach out within one business day.</p>
+      <div class="mt-5">
+        <slot />
+      </div>
+    </div>
+  </div>
+</section>

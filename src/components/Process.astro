@@ -1,0 +1,19 @@
+---
+import { process } from '../data/site';
+---
+
+<section id="process" class="scroll-mt-20 py-20">
+  <div class="container-x">
+    <p class="section-kicker">How it works</p>
+    <h2 class="section-title">Simple from first call to final cleanup</h2>
+    <ol class="mt-10 grid gap-6 md:grid-cols-4">
+      {process.map((p) => (
+        <li class="relative rounded-xl border border-line p-6">
+          <span class="inline-flex h-9 w-9 items-center justify-center rounded-full bg-brand-800 text-sm font-bold text-white">{p.step}</span>
+          <h3 class="mt-4 font-bold text-brand-900">{p.title}</h3>
+          <p class="mt-2 text-sm text-muted">{p.text}</p>
+        </li>
+      ))}
+    </ol>
+  </div>
+</section>

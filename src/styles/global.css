@@ -1,0 +1,65 @@
+@import "tailwindcss";
+
+/*
+  Brand tokens. These are intentional placeholders until the branding
+  guidelines (see docs/BRANDING.md) are finalized. Change the values here and
+  the whole site follows.
+*/
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+
+  --color-brand-50: #eef4fb;
+  --color-brand-100: #d9e6f5;
+  --color-brand-600: #1f4e85;
+  --color-brand-700: #173c68;
+  --color-brand-800: #12304f;
+  --color-brand-900: #0d2239;
+
+  --color-accent-400: #f59e0b;
+  --color-accent-500: #e8890c;
+  --color-accent-600: #c9720a;
+
+  --color-ink: #111827;
+  --color-muted: #4b5563;
+  --color-line: #e5e7eb;
+  --color-surface: #f8fafc;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  @apply bg-white text-ink antialiased;
+}
+
+.container-x {
+  @apply mx-auto w-full max-w-6xl px-4 sm:px-6 lg:px-8;
+}
+
+@utility btn {
+  @apply inline-flex items-center justify-center gap-2 rounded-md px-5 py-3 text-base font-semibold transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2;
+}
+.btn-primary {
+  @apply btn bg-accent-500 text-white hover:bg-accent-600 focus-visible:ring-accent-500;
+}
+.btn-secondary {
+  @apply btn bg-white text-brand-800 ring-1 ring-inset ring-line hover:bg-surface focus-visible:ring-brand-600;
+}
+.btn-ghost {
+  @apply btn text-white ring-1 ring-inset ring-white/40 hover:bg-white/10 focus-visible:ring-white;
+}
+
+.field {
+  @apply block w-full rounded-md border border-line bg-white px-3 py-2.5 text-ink placeholder:text-gray-400 focus:border-brand-600 focus:outline-none focus:ring-2 focus:ring-brand-600/30;
+}
+.label {
+  @apply mb-1 block text-sm font-medium text-ink;
+}
+
+.section-title {
+  @apply text-3xl font-bold tracking-tight text-brand-900 sm:text-4xl;
+}
+.section-kicker {
+  @apply mb-2 text-sm font-semibold uppercase tracking-wider text-accent-600;
+}
