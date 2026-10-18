@@ -14,21 +14,15 @@ Gotchas we hit:
 - New Netlify projects default to **Private visibility**, which returns a 401 login page to the public. Project configuration > General > Visitor access > Edit visibility > Public.
 - On the free plan, a **private GitHub repo only builds commits pushed by the account owner**. Anyone else's push is blocked with "Unrecognized Git contributor". Keep the repo public (fine for a marketing site) or make every commit from Wes's GitHub account.
 
-Still to do:
-1. Forms > Form notifications > Add notification > Email notification > form `estimate`, email `wesleysanders98@gmail.com`. The `estimate` form only appears after a successful deploy with form detection on.
-2. Project configuration > Environment variables: add `SUPABASE_URL` and `SUPABASE_SERVICE_ROLE_KEY` (see section 3), then trigger a redeploy.
-3. Project configuration > General > Powered by Netlify badge > Configure > turn off.
-4. Submit a test lead on the live site and confirm the email arrives.
+Done 2026-10-18: the `estimate` form is registered, an email notification goes to `wesleysanders98@gmail.com` on every submission, both Supabase environment variables are set, and the Powered by Netlify badge is off.
 
 ## 3. Supabase (lead database)
 
 Status 2026-10-18: account created (email signup in Chrome), organization "Prime View Exteriors" on the Free plan, project `primeview-exteriors` in East US (Ohio) with automatic RLS enabled. The database password is in Wes's password manager only.
 
-Still to do:
-1. SQL Editor > paste the contents of `supabase/migrations/20261018000000_create_leads.sql` > Run.
-2. Project Settings > API Keys: copy the Project URL and the `service_role` secret key.
-3. Add both to Netlify (section 2, step 2) and redeploy.
-4. Submit another test lead and confirm a row appears in Table Editor > `leads`.
+Done 2026-10-18: the leads migration was run in the SQL Editor, and Netlify has `SUPABASE_URL` plus `SUPABASE_SERVICE_ROLE_KEY` (the value is the new-style `sb_secret_...` key from Project Settings > API Keys > Secret keys, which supabase-js accepts in place of the legacy service_role JWT).
+
+If the key ever needs rotating: Supabase > Project Settings > API Keys > New secret key, paste it into the Netlify variable, delete the old key, redeploy.
 
 ## 4. Cloudflare (DNS, waiting on domain control)
 
